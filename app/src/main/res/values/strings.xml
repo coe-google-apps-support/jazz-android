@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">VIP Chat</string>
+    <string name="login_button">Login with Google</string>
 </resources>
