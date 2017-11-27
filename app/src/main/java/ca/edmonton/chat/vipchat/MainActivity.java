@@ -1,5 +1,6 @@
 package ca.edmonton.chat.vipchat;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +16,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.livechatinc.inappchat.ChatWindowActivity;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends Activity implements View.OnClickListener {
 
     GoogleSignInClient mGoogleSignInClient;
     int RC_SIGN_IN = 1;

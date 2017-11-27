@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">VIP Chat</string>
+    <string name="welcome">Welcome to VIP Chat</string>
+    <string name="info">Troubles? Instantly connect with City of Edmonton support staff.</string>
     <string name="login_button">Login with Google</string>
+    <string name="icon_desc">VIP Chat icon</string>
 </resources>
