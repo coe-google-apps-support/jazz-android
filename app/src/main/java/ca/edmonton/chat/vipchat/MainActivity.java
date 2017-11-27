@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -15,7 +14,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.livechatinc.inappchat.ChatWindowActivity;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity {
 
     GoogleSignInClient mGoogleSignInClient;
     int RC_SIGN_IN = 1;
@@ -28,7 +27,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
     }
 
     @Override
@@ -38,13 +36,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (account != null) {
             launchChat(this, account.getDisplayName(), account.getEmail());
         }
-    }
-
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.sign_in_button:
-                signIn();
-                break;
+        else {
+            signIn();
         }
     }
 
