@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void launchChat(Context context, String name, String email) {
         Intent intent = new Intent(context, com.livechatinc.inappchat.ChatWindowActivity.class);
-        intent.putExtra(ChatWindowActivity.KEY_GROUP_ID, "0");
+        intent.putExtra(ChatWindowActivity.KEY_GROUP_ID, "1");
         intent.putExtra(ChatWindowActivity.KEY_LICENCE_NUMBER, "9242305");
         intent.putExtra(ChatWindowActivity.KEY_VISITOR_NAME, name);
         intent.putExtra(ChatWindowActivity.KEY_VISITOR_EMAIL, email);
