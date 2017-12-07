@@ -1,4 +1,4 @@
-package ca.edmonton.chat.vipchat;
+package ca.edmonton.jazz;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("ca.edmonton.chat.vipchat", appContext.getPackageName());
+        assertEquals("ca.edmonton.jazz", appContext.getPackageName());
     }
 }

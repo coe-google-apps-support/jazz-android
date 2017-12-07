@@ -1,7 +1,7 @@
-package ca.edmonton.chat.vipchat;
+package ca.edmonton.jazz;
 
-import android.content.Context;
 import android.content.Intent;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;

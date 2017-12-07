@@ -1,4 +1,4 @@
-package ca.edmonton.chat.vipchat;
+package ca.edmonton.jazz;
 
 import org.junit.Test;
 
