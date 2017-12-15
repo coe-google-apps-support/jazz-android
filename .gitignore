@@ -133,3 +133,4 @@ fabric.properties
 .idea/modules.xml
 .idea/gradle.xml
 .idea/runConfigurations.xml
+app/src/main/java/ca/edmonton/jazz/Config.java
