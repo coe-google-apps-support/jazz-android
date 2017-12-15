@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity implements ChatWindowView.Ch
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account != null) {
             ChatWindowConfiguration config = new ChatWindowConfiguration(
-                    "9242305",
-                    "1",
+                    Config.license,
+                    Config.group,
                     account.getDisplayName(),
                     account.getEmail(),
                     new HashMap<String, String>()
@@ -75,8 +75,8 @@ public class MainActivity extends AppCompatActivity implements ChatWindowView.Ch
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
             ChatWindowConfiguration config = new ChatWindowConfiguration(
-                    "9242305",
-                    "1",
+                    Config.license,
+                    Config.group,
                     account.getDisplayName(),
                     account.getEmail(),
                     new HashMap<String, String>()
