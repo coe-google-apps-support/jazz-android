@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements ChatWindowView.Ch
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        addShortcut();
     }
 
     @Override
@@ -110,6 +111,21 @@ public class MainActivity extends AppCompatActivity implements ChatWindowView.Ch
             fullScreenChatWindow.initialize();
         }
         fullScreenChatWindow.showChatWindow();
+    }
+
+    private void addShortcut() {
+        Intent shortcutIntent = new Intent(getApplicationContext(), MainActivity.class);
+        shortcutIntent.setAction(Intent.ACTION_MAIN);
+
+        Intent addIntent = new Intent();
+        addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+        addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, R.string.app_name);
+        addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+                Intent.ShortcutIconResource.fromContext(getApplicationContext(),
+                        R.mipmap.ic_launcher));
+        addIntent.putExtra("duplicate", false);
+        addIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
+        getApplicationContext().sendBroadcast(addIntent);
     }
 
     @Override
