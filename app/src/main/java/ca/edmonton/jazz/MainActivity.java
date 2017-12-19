@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements ChatWindowView.Ch
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (fullScreenChatWindow != null) fullScreenChatWindow.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
@@ -68,6 +69,24 @@ public class MainActivity extends AppCompatActivity implements ChatWindowView.Ch
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             handleSignInResult(task);
         }
+        else {
+            Log.w("Chat", "Received unknown code " + requestCode);
+        }
+    }
+
+    @Override
+    public void onChatWindowVisibilityChanged(boolean b) {
+        Log.w("Chat", "Chat window visibility changed.");
+    }
+
+    @Override
+    public void onNewMessage(NewMessageModel newMessageModel, boolean b) {
+        Log.w("Chat", "Chat message received.");
+    }
+
+    @Override
+    public void onStartFilePickerActivity(Intent intent, int requestCode) {
+        startActivityForResult(intent, requestCode);
     }
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
@@ -110,20 +129,5 @@ public class MainActivity extends AppCompatActivity implements ChatWindowView.Ch
             fullScreenChatWindow.initialize();
         }
         fullScreenChatWindow.showChatWindow();
-    }
-
-    @Override
-    public void onChatWindowVisibilityChanged(boolean b) {
-        Log.w("Chat", "Chat window visibility changed.");
-    }
-
-    @Override
-    public void onNewMessage(NewMessageModel newMessageModel, boolean b) {
-        Log.w("Chat", "Chat message received.");
-    }
-
-    @Override
-    public void onStartFilePickerActivity(Intent intent, int i) {
-        Log.w("Chat", "Chat started.");
     }
 }
