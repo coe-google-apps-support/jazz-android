@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.Context;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
@@ -47,12 +48,16 @@ public class MainActivity extends AppCompatActivity implements ChatWindowView.Ch
         super.onStart();
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account != null) {
+            HashMap<String, String> params = new HashMap<String, String>();
+            params.put("OS", "Android " + Build.VERSION.SDK_INT + " " + Build.VERSION.RELEASE);
+            params.put("Device", Build.MANUFACTURER + " " + Build.MODEL);
+
             ChatWindowConfiguration config = new ChatWindowConfiguration(
                     Config.license,
                     Config.group,
                     account.getDisplayName(),
                     account.getEmail(),
-                    new HashMap<String, String>()
+                    params
             );
 
             launchChat(this, config);
