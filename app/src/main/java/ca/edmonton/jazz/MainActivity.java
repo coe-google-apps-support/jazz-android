@@ -137,12 +137,6 @@ public class MainActivity extends AppCompatActivity implements ChatWindowView.Ch
     }
 
     private void launchChat(Context context, ChatWindowConfiguration config) {
-//        Intent intent = new Intent(context, ChatWindowActivity.class);
-//        intent.putExtra(ChatWindowActivity.KEY_GROUP_ID, "1");
-//        intent.putExtra(ChatWindowActivity.KEY_LICENCE_NUMBER, "9242305");
-//        intent.putExtra(ChatWindowActivity.KEY_VISITOR_NAME, name);
-//        intent.putExtra(ChatWindowActivity.KEY_VISITOR_EMAIL, email);
-//        context.startActivity(intent);
         if (fullScreenChatWindow == null) {
             fullScreenChatWindow = ChatWindowView.createAndAttachChatWindowInstance(this);
             fullScreenChatWindow.setUpWindow(config);
