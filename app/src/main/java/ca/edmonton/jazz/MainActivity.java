@@ -1,7 +1,11 @@
 package ca.edmonton.jazz;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.Context;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements ChatWindowView.Ch
     private GoogleSignInClient mGoogleSignInClient;
     private ChatWindowView fullScreenChatWindow;
     private int RC_SIGN_IN = 1;
+    private boolean isForeground = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +63,18 @@ public class MainActivity extends AppCompatActivity implements ChatWindowView.Ch
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        isForeground = true;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        isForeground = false;
+    }
+
+    @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (fullScreenChatWindow != null) fullScreenChatWindow.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
@@ -82,6 +99,10 @@ public class MainActivity extends AppCompatActivity implements ChatWindowView.Ch
     @Override
     public void onNewMessage(NewMessageModel newMessageModel, boolean b) {
         Log.w("Chat", "Chat message received.");
+        if (!isForeground) {
+            Log.w("Chat", "Sending notification.");
+            sendNotification(newMessageModel.getAuthor().getName(), newMessageModel.getText());
+        }
     }
 
     @Override
@@ -129,5 +150,41 @@ public class MainActivity extends AppCompatActivity implements ChatWindowView.Ch
             fullScreenChatWindow.initialize();
         }
         fullScreenChatWindow.showChatWindow();
+    }
+
+    private void sendNotification(String author, String value) {
+        // The id of the channel.
+        String CHANNEL_ID = "jazz_01";
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this, CHANNEL_ID)
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setAutoCancel(true)
+                        .setContentTitle(author)
+                        .setContentText(value);
+        // Creates an explicit intent for an Activity in your app
+        Intent resultIntent = new Intent(this, MainActivity.class);
+
+        // The stack builder object will contain an artificial back stack for the
+        // started Activity.
+        // This ensures that navigating backward from the Activity leads out of
+        // your app to the Home screen.
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        // Adds the back stack for the Intent (but not the Intent itself)
+        stackBuilder.addParentStack(MainActivity.class);
+        // Adds the Intent that starts the Activity to the top of the stack
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        mBuilder.setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // mNotificationId is a unique integer your app uses to identify the
+        // notification. For example, to cancel the notification, you can pass its ID
+        // number to NotificationManager.cancel().
+        mNotificationManager.notify(1, mBuilder.build());
     }
 }
