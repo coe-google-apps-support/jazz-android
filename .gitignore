@@ -134,3 +134,4 @@ fabric.properties
 .idea/gradle.xml
 .idea/runConfigurations.xml
 app/src/main/java/ca/edmonton/jazz/Config.java
+keystore.properties
